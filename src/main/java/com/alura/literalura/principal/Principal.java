@@ -1,5 +1,6 @@
 package com.alura.literalura.principal;
 
+
 import com.alura.literalura.model.*;
 import com.alura.literalura.service.AutorService;
 import com.alura.literalura.service.GutendexService;
@@ -43,8 +44,8 @@ public class Principal implements CommandLineRunner {
                     0- Salir
                     """);
 
-                opcion = teclado.nextInt();
-                teclado.nextLine();
+            opcion = teclado.nextInt();
+            teclado.nextLine();
 
             switch (opcion) {
                 case 1:
