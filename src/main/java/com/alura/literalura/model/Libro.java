@@ -13,7 +13,7 @@ public class Libro {
     private String titulo;
     @ManyToMany(mappedBy = "libros", cascade = CascadeType.ALL)
     private List<Autor> autores;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> idiomas;
     private Integer numeroDeDescargas;
 
@@ -69,10 +69,10 @@ public class Libro {
 
         @Override
     public String toString() {
-        return "Libro{" +
-                "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", numeroDeDescargas=" + numeroDeDescargas +
-                '}';
+        return "--------LIBRO---------\n" +
+                "Libro:" + id + "\n" +
+                "Titulo:" + titulo + "\n" +
+                "Idioma:" + idiomas + "\n" +
+                "Numero de desargas:" + numeroDeDescargas + "\n";
     }
 }

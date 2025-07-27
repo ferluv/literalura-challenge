@@ -73,7 +73,7 @@ public class Principal implements CommandLineRunner {
     }
 
     private void buscarPorTitulo() {
-        System.out.println("Ingrese el título a buscar:");
+        System.out.println("Ingrese el título a buscar: ");
         String titulo = scanner.nextLine();
 
         GutendexResponse respuesta = gutendexService.buscarPorTitulo(titulo);
@@ -82,6 +82,7 @@ public class Principal implements CommandLineRunner {
         for (int i = 0; i < maxResultados; i++) {
             DatosLibro datosLibro = respuesta.results().get(i);
 
+            System.out.println("----- LIBRO -----");
             System.out.println("Título: " + datosLibro.titulo());
             for (DatosAutor autor : datosLibro.autor()) {
                 System.out.println("Autor: " + autor.nombre());
@@ -132,14 +133,25 @@ public class Principal implements CommandLineRunner {
     }
 
     private void listarPorIdioma() {
-        System.out.print("Ingrese el idioma (en, es, fr, etc.): ");
+        System.out.print("Ingrese el idioma para buscar los libros: \n");
+        System.out.println("  es - Español");
+        System.out.println("  en - Inglés");
+        System.out.println("  fr - Francés");
+        System.out.println("  pt - Portugués");
+
         String idioma = scanner.nextLine();
 
         List<Libro> libros = libroService.buscarLibrosPorIdioma(idioma);
         if (libros.isEmpty()) {
             System.out.println("No hay libros en el idioma: " + idioma);
         } else {
-            libros.forEach(System.out::println);
+            System.out.println("===============================");
+            System.out.printf("%-30s %-15s%n", "Título", "Idioma(s)");
+            System.out.println("-----------------------------------------------");
+            for (Libro libro : libros) {
+                System.out.printf("%-30s %-15s%n", libro.getTitulo(), libro.getIdiomas());
+            }
+            System.out.println("===============================");
         }
     }
 }

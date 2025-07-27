@@ -15,7 +15,7 @@ public class Autor {
     private Integer fechaNacimiento;
     private Integer fechaFallecimiento;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "libro_autor",
             joinColumns = @JoinColumn(name = "autor_id"),
@@ -73,10 +73,14 @@ public class Autor {
 
     @Override
     public String toString() {
-        return "Autor{" +
-                "nombre='" + nombre + '\'' +
-                ", fechaNacimiento=" + fechaNacimiento +
-                ", fechaFallecimiento=" + fechaFallecimiento +
-                '}';
+        String librosStr = libros.stream()
+                .map(Libro::getTitulo)
+                .toList()
+                .toString();
+
+        return "Autor: " + nombre + "\n"
+                + "Fecha de nacimiento: " + fechaNacimiento + "\n"
+                + "Fecha de fallecimiento: " + fechaFallecimiento + "\n"
+                + "Libros: " + librosStr + "\n";
     }
 }
